@@ -48,7 +48,11 @@ namespace Hooks
 			{
 				func(a_this, a_interval, a_currentTime);
 
-				if (auto root = a_this->showLoadScreen ? a_this->loadScreenModel : RE::NiPointer<RE::BSFadeNode>()) {
+				if (!a_this->showLoadScreen || !a_this->cameraPathSequence) {
+					return;
+				}
+
+				if (const auto& root = a_this->loadScreenModel) {
 					// init values
 					if (!cachedXYZ) {
 						detail::SyncRotation(root);
